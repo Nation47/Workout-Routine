@@ -4,9 +4,15 @@ const Navbar = () => {
     return (
         <header>
             <div className="container">
-                <Link>
+                <Link to='/'>
                     <h1>Workout Routine</h1>
                 </Link>
+                <div className='links'>
+                    <Link to='/'>Home</Link>
+                    <Link to='/addWorkout'>Create Workout</Link>
+                    <Link className='' to='/login'>Login</Link>
+                    <Link to='/register'>Register</Link>
+                </div>
             </div>
         </header>
     )

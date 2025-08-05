@@ -2,11 +2,17 @@
 /* google font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
 /* layout */
 :root {
   --primary: #1aac83;
   --error: #e7195a;
 }
+
 body {
   background: #f1f1f1;
   margin: 0;
@@ -27,6 +33,10 @@ header a {
   color: #333;
   text-decoration: none;
 }
+.link1 {
+  padding: 0 30px ; 
+  
+}
 .pages{
   max-width: 1400px;
   padding: 20px;
@@ -40,32 +50,56 @@ header a {
   gap: 100px;
 }
 .workout-details {
-  background: #fff;
-  border-radius: 4px;
+  background: #ffffff;
+  border-radius: 10px;
   margin: 20px auto;
-  padding: 20px;
+  padding: 25px 20px;
   position: relative;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 500px;
 }
+.flex {
+  display: flex;
+}
+
+.workout-details:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
 .workout-details h4 {
-  margin: 0 0 10px 0;
-  font-size: 1.2em;
+  margin: 0 0 15px 0;
+  font-size: 1.4em;
   color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 5px;
 }
+
 .workout-details p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #555;
+  margin: 10px 0;
+  font-size: 1em;
+  color: #333;
+  line-height: 1.4;
 }
+
 .workout-details span {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 15px;
+  right: 15px;
   cursor: pointer;
-  background: #f1f1f1;
+  background: #eee;
   padding: 6px;
   border-radius: 50%;
-  color: #333;
+  color: #555;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+
+.workout-details span:hover {
+  background: #f44336;
+  color: #fff;
 }
 
 /* new workout form */
@@ -89,6 +123,8 @@ form button {
   font-family: "Poppins";
   border-radius: 4px;
   cursor: pointer;
+  display: block;
+  margin: 20px auto 0; /* Center horizontally */
 }
 div.error {
   padding: 10px;
@@ -100,4 +136,128 @@ div.error {
 }
 input.error {
   border: 1px solid var(--error);
+}
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  
+}
+
+.form-container {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center;     /* center vertically */
+ 
+}
+
+form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+.form-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+  font-weight: 600;
+}
+.form-link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.form-link a {
+  color: var(--primary); /* or use a hex: #007bff */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.form-link a:hover {
+  color: #0056b3;
+}
+header {
+  background-color: #fff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.container h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Links container */
+.links {
+  display: flex;
+  gap: 1.5rem; /* spacing between links */
+}
+
+/* Individual links */
+.links a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Special styling for .link1 */
+.links a.link1 {
+  background-color: var(--primary); /* your primary color */
+  color: #fff;
+}
+
+/* Hover effect */
+.links a:hover {
+  background-color: #f0f0f0;
+  color: var(--primary);
+}
+
+/* Hover effect for link1 */
+.links a.link1:hover {
+  background-color: #004a9f; /* darker shade */
+  color: #fff;
+}
+
+/* Responsive: stack links on small screens */
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .links {
+    margin-top: 0.8rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .links a {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 0.7rem 0;
+  }
 }

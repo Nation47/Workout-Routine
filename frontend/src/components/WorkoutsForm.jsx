@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import { useNavigate } from 'react-router-dom';
 
 const WorkoutsForm = () => {
     const { dispatch } = useWorkoutsContext()
@@ -8,7 +9,10 @@ const WorkoutsForm = () => {
     const [load, setLoad] = useState('');
     const [reps, setReps] = useState('');
     const [error, setError] = useState(null);
-    const [emptyFields, setEmptyFields] = useState([])
+    const [emptyFields, setEmptyFields] = useState([]);
+
+    
+    const router = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -36,41 +40,45 @@ const WorkoutsForm = () => {
             setLoad('')
             setReps('')
             dispatch({type: 'CREATE_WORKOUT', payload: json});
+            router('/');
         }
 
     }
 
     return (
-        <form className="create" onSubmit={handleSubmit}>
-            <h3>Add a new Workout</h3>
+        <div className="form-container">
 
-            <label>Excersize Title:</label>
-            <input 
-                type="text" 
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-                className={emptyFields.includes('title') ? 'error' : ''}
-            />
+            <form className="create" onSubmit={handleSubmit}>
+                <h3 className="form-title">Add a new Workout</h3>
 
-            <label>Load (in Kg):</label>
-            <input 
-                type="number" 
-                onChange={(e) => setLoad(e.target.value)}
-                value={load}
-                className={emptyFields.includes('load') ? 'error' : ''}
-            />
+                <label>Excersize Title:</label>
+                <input 
+                    type="text" 
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                    className={emptyFields.includes('title') ? 'error' : ''}
+                />
 
-            <label>Reps:</label>
-            <input 
-                type="number" 
-                onChange={(e) => setReps(e.target.value)}
-                value={reps}
-                className={emptyFields.includes('reps') ? 'error' : ''}
-            />
+                <label>Load (in Kg):</label>
+                <input 
+                    type="number" 
+                    onChange={(e) => setLoad(e.target.value)}
+                    value={load}
+                    className={emptyFields.includes('load') ? 'error' : ''}
+                />
 
-            <button>Add new Workout</button>
-            {error && <div className="error">{error}</div>}
-        </form>
+                <label>Reps:</label>
+                <input 
+                    type="number" 
+                    onChange={(e) => setReps(e.target.value)}
+                    value={reps}
+                    className={emptyFields.includes('reps') ? 'error' : ''}
+                />
+
+                <button>Add new Workout</button>
+                {error && <div className="error">{error}</div>}
+            </form>
+        </div>
     )
 }
 
