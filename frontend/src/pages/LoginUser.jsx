@@ -1,13 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import {useAuth} from '../hooks/useAuth'
 
 const LoginUser = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
+
+    const {dispatch} = useAuth();
+    const navigate = useNavigate()
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log('submitted')
+
+        const login = {email, password}
+
+        const response = await fetch ('/api/user/login', {
+            method: 'POST',
+            body: JSON.stringify(login),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const json = await response.json();
+
+        if(!response.ok) {
+            setError(json.error)
+        }
+
+        if(response.ok){
+            localStorage.setItem('user', JSON.stringify(json))
+            dispatch({
+                type: 'LOGIN', payload: json
+            })
+            navigate('/')
+        }
+        
     }
 
     return (
@@ -31,6 +61,7 @@ const LoginUser = () => {
                 />
 
                 <button>Login</button>
+                {error && <div className="error">{error}</div>}
                  <p className="form-link">
                     <Link to='/register'>Don't have an Account? Sign Up</Link>
                 </p>

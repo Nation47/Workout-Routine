@@ -1,15 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const RegisterUser = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
+    const {dispatch} = useAuth();
+
+    // const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log('submitted')
+        const register = {name, email, password}
+
+        const response = await fetch ('/api/user/register', {
+            method: 'POST',
+            body: JSON.stringify(register),
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        });
+
+        const json = await response.json();
+
+        if(!response.ok) {
+            setError(json.error)
+        }
+
+        if(response.ok) {
+            localStorage.setItem('user', JSON.stringify(json))
+            dispatch({type: 'LOGIN', payload: json})
+            navigate('/')
+        }
+
     }
 
     return (
@@ -39,12 +66,12 @@ const RegisterUser = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <input 
+                {/* <input 
                     type="number"
                     value={confirmPassword}
                     placeholder="Confirm Password"
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                /> */}
                 <button>Register</button>
                 <p className="form-link">
                     <Link to='/login'>Already have an Account? Sign In</Link>
