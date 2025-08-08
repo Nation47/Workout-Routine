@@ -43,7 +43,7 @@ const LoginUser = () => {
     return (
         <div className="form-container">
 
-            <form className="create" onChange={handleSubmit}>
+            <form className="create" onSubmit={handleSubmit}>
                 <h3 className="form-title">Sign In</h3>
 
                 <input 

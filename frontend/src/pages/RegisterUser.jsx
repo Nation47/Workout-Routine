@@ -42,7 +42,7 @@ const RegisterUser = () => {
     return (
         <div className="form-container">
 
-            <form className="" onChange={handleSubmit}>
+            <form className="" onSubmit={handleSubmit}>
                 <h3 className="form-title">Register</h3>
 
                 <input 
