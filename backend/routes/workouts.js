@@ -1,6 +1,5 @@
 const express = require('express');
-const router = express.Router();
-
+const requireAuth = require('../middleware/requireAuth');
 // controllers
 const {
     createWorkout,
@@ -8,8 +7,12 @@ const {
     getWorkouts,
     deleteWorkout,
     updateWorkout
-} = require('../controllers/workoutController')
+} = require('../controllers/workoutController');
 
+const router = express.Router();
+
+// require authorization for all workout route
+router.use(requireAuth)
 
 // routes
 

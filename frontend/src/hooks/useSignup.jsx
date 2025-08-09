@@ -4,15 +4,15 @@ import { useAuth } from "./useAuth";
 export const useSignup = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [error, setError] = useState(null)
-    const {dispatch} = useAuth();
+    const { dispatch } = useAuth();
 
     const signup = async (email, password) => {
         setError(null);
         setIsLoading(true);
 
-        const response = await fetch ('/api/user/signup', {
+        const response = await fetch('/api/user/signup', {
             method: 'POST',
-            header: {
+            headers: {
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({email, password})

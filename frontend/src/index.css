@@ -240,7 +240,17 @@ header {
   background-color: #004a9f; /* darker shade */
   color: #fff;
 }
-
+nav button {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-size: 1em;
+  margin-left: 10px;
+}
 /* Responsive: stack links on small screens */
 @media (max-width: 600px) {
   .container {

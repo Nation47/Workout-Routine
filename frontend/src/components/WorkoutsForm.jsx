@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../hooks/useAuth";
 
 const WorkoutsForm = () => {
     const { dispatch } = useWorkoutsContext()
@@ -13,17 +14,25 @@ const WorkoutsForm = () => {
 
     
     const router = useNavigate();
+    const {user} = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+
         const workout = {title, load, reps}
+
+        if(!user) {
+            setError('You must be logged in')
+            return
+        }
         
         const response = await fetch('/api/workouts', {
         method: 'POST',
         body: JSON.stringify(workout),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
         }
         })
         const json = await response.json()
@@ -39,6 +48,7 @@ const WorkoutsForm = () => {
             setTitle('')
             setLoad('')
             setReps('')
+
             dispatch({type: 'CREATE_WORKOUT', payload: json});
             router('/');
         }

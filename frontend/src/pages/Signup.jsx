@@ -1,19 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
+import { useSignup} from "../hooks/useSignup";
 
 const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
 
     // const navigate = useNavigate();
-    // const {dispatch} = useAuth();
+    const {signup, error, isLoading} = useSignup();
 
 
     const handleSubmit = async(e) => {
         e.preventDefault();
 
+        await signup(email, password);
         console.log(email, password)
     }
 
@@ -37,7 +37,8 @@ const Signup = () => {
                     placeholder="Password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button>Sign Up</button>
+                <button disabled={isLoading}>Sign Up</button>
+                {error && <div className="error">{error}</div>}
                 <p className="form-link">
                     <Link to='/login'>Already have an Account? Sign In</Link>
                 </p>
